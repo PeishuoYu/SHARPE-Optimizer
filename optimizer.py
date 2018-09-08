@@ -25,10 +25,6 @@ def get_weight_combination(number_of_asset):
 
 def get_sharpe(combination, matrix, mean_returns, weight_combination):
     weight_combination = pd.Series(data=weight_combination, index=combination)
-    # limit the weight of MOC
-    if 'MOC' in combination:
-        if weight_combination['MOC'] > 0.1:
-            return 0
     exp_return = mean_returns.multiply(weight_combination).sum()
     std = matrix.multiply(weight_combination, axis=0).multiply(weight_combination, axis=1).values.sum() ** (1/2)
     return exp_return / std
